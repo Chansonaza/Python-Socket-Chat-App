@@ -13,6 +13,16 @@ def connect():
     client.connect(ADDR)
     return client
 
+def receive_msg_server(client):
+    while True:
+        try: 
+            response = client.recv(1024).decode(FORMAT)
+            if response: 
+                print(f"Server: {response}")
+        except Exception as e:
+            print("ERROR!")
+            client.close()
+            break
 
 def send(client, msg):
     message = msg.encode(FORMAT)
